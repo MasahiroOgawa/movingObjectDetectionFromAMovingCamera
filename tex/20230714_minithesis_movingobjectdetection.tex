@@ -1,19 +1,36 @@
-\documentclass{article}
-\usepackage{multicol}
-
-\title{Moving Object Detection from a Moving Camera}
-\author{Masahiro Ogawa}
+\documentclass[10pt, twocolumn]{article}
+\usepackage{simpleConference}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{url,hyperref}
 
 \begin{document}
 
-\maketitle
+\title{Moving Object Detection from a Moving Camera}
 
-\begin{multicols}{2}
+\author{Masahiro Ogawa \\
+  \\
+  Minithesis 2023\\
+  University of Tokyo\\
+  \today
+  \\
+  \\
+  ogawa@t.robot.u-tokyo.ac.jp}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+  This is abstruct
+\end{abstract}
+
+
 \section{Introduction}
 Separating moving and static objects is very important. The use cases include gravity dance for open most vehicles and understanding scenes for assistant robots.
 
 \section{Real-rated Work}
-There have been several papers on moving object detection from a moving camera. The first one is "Moving Object Detection with a Moving Camera: A Comprehensive Review" by Chapelle et al. They categorized moving object detection methods, but did not create a ranking. Another paper, "Wasabi of Moving Object Detection Methods" by Chapelle et al., categorized methods and provided rankings. The highest-ranking method, M unit 2, used grayscale monocular video and combined three channels: grayscale image, background subtraction image, and flux mask. However, this method only works for slightly moving cameras and cannot handle large camera movements.
+There have been several papers on moving object detection from a moving camera. The first one is "Moving Object Detection with a Moving Camera: A Comprehensive Review" by Chapelle et al\cite{Mustafa16}. They categorized moving object detection methods, but did not create a ranking. Another paper, "Wasabi of Moving Object Detection Methods" by Chapelle et al., categorized methods and provided rankings. The highest-ranking method, M unit 2, used grayscale monocular video and combined three channels: grayscale image, background subtraction image, and flux mask. However, this method only works for slightly moving cameras and cannot handle large camera movements.
 
 Other papers in the category of moving object detection with a moving camera include a review paper and the best method, "Semi-Supervised Video Segmentation on Davist." The best method in this category is "hmmn," which requires human interaction and tracking, which is not ideal.
 
@@ -46,5 +63,7 @@ In future work, we plan to:
   \item Apply this method to 3D reconstruction.
 \end{itemize}
 
-\end{multicols}
+\bibliographystyle{abbrv}
+\bibliography{4dreconstruction}
+
 \end{document}
