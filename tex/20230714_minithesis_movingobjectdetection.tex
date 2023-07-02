@@ -11,26 +11,33 @@
 
 \author{Masahiro Ogawa \\
   \\
-  Minithesis 2023\\
-  University of Tokyo\\
+  Yamashita An Lab,
+  Department of Precision Engineering,
+  University of Tokyo, Japan\\
+  Mini thesis\\
   \today
   \\
   \\
-  ogawa@t.robot.u-tokyo.ac.jp}
+  ogawa@robot.t.u-tokyo.ac.jp}
 
 \maketitle
 \thispagestyle{empty}
 
 \begin{abstract}
-  This is abstruct
+  We develop the state of the art accuracy moving object detection from a moving camera.
+  The basic idea of our algorithm is if the camera is moving straight forward, we extract moving object as strange flow considering the computed focus of expansion, other wise we assume the camera is rotating and extract moving objects as undominant flow area. At the same time, to reduce false positives, we incorporate optical flow and semantic segmentation information.
+  Our approach accomplish state of the art accuracy on our qualitative evaluation.
 \end{abstract}
 
 
 \section{Introduction}
-Separating moving and static objects is very important. The use cases include gravity dance for open most vehicles and understanding scenes for assistant robots.
+Separating moving and static objects is very important for real environment applications.
+For example, such applications include obstacle avoidance for autonomous vehicles, and scene understanding for assistant robots.
+
 
 \section{Real-rated Work}
-There have been several papers on moving object detection from a moving camera. The first one is "Moving Object Detection with a Moving Camera: A Comprehensive Review" by Chapelle et al\cite{Mustafa16}. They categorized moving object detection methods, but did not create a ranking. Another paper, "Wasabi of Moving Object Detection Methods" by Chapelle et al., categorized methods and provided rankings. The highest-ranking method, M unit 2, used grayscale monocular video and combined three channels: grayscale image, background subtraction image, and flux mask. However, this method only works for slightly moving cameras and cannot handle large camera movements.
+There have been several papers on moving object detection from a moving camera.
+One famous paper is "Moving Object Detection with a Moving Camera: A Comprehensive Review" by Chapelle et al\cite{chapel2020moving}. They categorized moving object detection methods, but did not create a ranking. Another paper, "Wasabi of Moving Object Detection Methods" by Chapelle et al., categorized methods and provided rankings. The highest-ranking method, M unit 2, used grayscale monocular video and combined three channels: grayscale image, background subtraction image, and flux mask. However, this method only works for slightly moving cameras and cannot handle large camera movements.
 
 Other papers in the category of moving object detection with a moving camera include a review paper and the best method, "Semi-Supervised Video Segmentation on Davist." The best method in this category is "hmmn," which requires human interaction and tracking, which is not ideal.
 
