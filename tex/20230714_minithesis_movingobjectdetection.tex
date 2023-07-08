@@ -32,7 +32,7 @@
 
 \section{Introduction}
 Separating moving and static objects is very important for real environment applications.
-For example, such applications include obstacle avoidance for autonomous vehicles, and scene understanding for assistant robots.
+Such applications include obstacle avoidance for autonomous vehicles, and scene understanding for assistant robots.
 
 
 \section{Rerated Work}
@@ -41,16 +41,19 @@ One of the famous review paper about moving object detection from a moving camer
 They categorized moving object detection methods, but did not do quantitative evaluation nor create a ranking.
 Another famous review paper is X.Zhao et al's one \cite{ZHAO202228}.
 They categorized methods and provided rankings.
-The highest-ranking method, Motion U-Net2 \cite{DBLP:conf/icpr/RahmonBSP20}.
-Thety used grayscale monocular video as an input and combined three channels; grayscale image, background subtraction image, and flux mask.
+The highest-ranking method is Motion U-Net2 \cite{DBLP:conf/icpr/RahmonBSP20}.
+They used grayscale monocular video as an input and combined three channels; grayscale image, background subtraction image, and flux mask.
 However, this method only works for slightly moving cameras and cannot handle large camera motions.
 
-The best method on paperswithcode web site of category; "Semi-Supervised Video Object Segmentation on Davis (no YouTube-VOS training)" is "HMMN" \cite{DBLP:journals/corr/abs-2109-11404}.
-This method requires human input of target initial position, which means this method is not moving object detection in our definition but tracking.
+On the other hand, the best method on paperswithcode web site of the category; "Semi-Supervised Video Object Segmentation on Davis (no YouTube-VOS training)" is "HMMN" \cite{DBLP:journals/corr/abs-2109-11404}.
+However this method requires human inputs of target initial positions, which means this method is not moving object detection in our definition but is just a tracking algorithm.
 
 ---from here, just voice input---
 
-Next, we searched for individual methods. The first one is a feature-based approach called "Moving Object Detection under a Moving Camera: Background Subtraction and Recognition" by Win Long Song et al. This method uses the orientation of the optical flow between adjacent frames and calculates the background orientation field. The motion saliency is obtained by the difference between the reconstructed background orientation and the region orientation.
+In addition to search above reviews, we also searched for individual methods.
+The first attractive one is a feature-based approach called "Moving Object Detection under a Moving Camera: Background Subtraction and Recognition" by Win Long Song et al.
+This method uses the orientation of the optical flow between adjacent frames and calculates the background orientation field.
+The motion saliency is obtained by the difference between the reconstructed background orientation and the region orientation.
 
 The second method is a homography-based approach called "Multiple Moving Object Detection on Simultaneous Tracking from Time-Varying Background." This method estimates the camera rotation using computer vision techniques and solves the question when both the camera's focal length and rotation are unknown. However, this method assumes a fixed focal length.
 
