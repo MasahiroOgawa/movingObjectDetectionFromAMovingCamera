@@ -50,14 +50,19 @@ On the other hand, the best method on paperswithcode web site of the category; "
 However this method requires human inputs of target initial positions, which means this method is not moving object detection in our definition but is just a tracking algorithm.
 
 In addition to search reviews, we also searched state of the art approach by ourself.
+
 W.Zhang et al \cite{Zhang_Sun_Yu_2020} developed a optical flow orientation based approach.
 They used the orientation of the optical flow between adjacent frames and calculates the background orientation field.
 The motion saliency is obtained by the difference between the reconstructed background orientation and the region orientation.
 Their results looks good, but they didn't provide the quantitative comparison between current state of the art methods.
 
----from here, just voice input---
+Hu an Uchimura \cite{hu2000} developed Focus of Expansion (FoE) based approach to extract moving objects from a moving camera.
+This method estimates the camera rotation and translation using precomputed FoE.
+Then, if the rotation compensated optical flow is not the one which expected for static objects, it will consider the pixel comes from moving objects.
+However, this method assumes a fixed FoE because it assumes car mounted camera.
+Therefore if the camera is handheld, as our assuming case, it will not work anymore.
 
-The second method is a homography-based approach called "Multiple Moving Object Detection on Simultaneous Tracking from Time-Varying Background." This method estimates the camera rotation using computer vision techniques and solves the question when both the camera's focal length and rotation are unknown. However, this method assumes a fixed focal length.
+---from here, just voice input---
 
 The next method is a state-of-the-art deep learning approach called "On Super Bus Moving Object Detection: Context of Information Separation." They use an adversarial network with flow area. The generator tries to create a mask that is hard to estimate inside the wall, while the in-painter tries to estimate the floor inside the mask and compute the information reduction rate. The generator creates the foreground mask, which contains different information from outside the mask. This method performed well on their dataset, but had some issues when tested on a different dataset, such as false positives in low-textured areas and overly large moving object regions.
 
