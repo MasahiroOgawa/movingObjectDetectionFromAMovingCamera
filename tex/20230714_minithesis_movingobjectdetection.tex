@@ -49,7 +49,7 @@ However, this method only works for slightly moving cameras and cannot handle la
 On the other hand, the best method on paperswithcode web site of the category; "Semi-Supervised Video Object Segmentation on Davis (no YouTube-VOS training)" is "HMMN" \cite{DBLP:journals/corr/abs-2109-11404}.
 However this method requires human inputs of target initial positions, which means this method is not moving object detection in our definition but is just a tracking algorithm.
 
-In addition to search reviews, we also searched state of the art approach by ourself.
+In addition to search reviews, we also search state of the art approaches.
 
 W.Zhang et al \cite{Zhang_Sun_Yu_2020} developed a optical flow orientation based approach.
 They used the orientation of the optical flow between adjacent frames and calculates the background orientation field.
@@ -62,9 +62,15 @@ Then, if the rotation compensated optical flow is not the one which expected for
 However, this method assumes a fixed FoE because it assumes car mounted camera.
 Therefore if the camera is handheld, as our assuming case, it will not work anymore.
 
----from here, just voice input---
+One of the current state-of-the-art approach is Yang et al's deep adversarial network based approach \cite{yang_loquercio_2019}.
+They used an adversarial network for optical flow information.
+The generator tries to create a mask that is hard to estimate the inside mask flow, while the in-painter tries to estimate the flow inside the mask.
+The loss is computed by the information reduction rate.
+Although this method performed well on their evaluation dataset, but had some issues when we tested on our dataset.
+There are some false positives in low-textured areas and large object motion regions, where is hard to estimate optical flow from surrounding flow.
 
-The next method is a state-of-the-art deep learning approach called "On Super Bus Moving Object Detection: Context of Information Separation." They use an adversarial network with flow area. The generator tries to create a mask that is hard to estimate inside the wall, while the in-painter tries to estimate the floor inside the mask and compute the information reduction rate. The generator creates the foreground mask, which contains different information from outside the mask. This method performed well on their dataset, but had some issues when tested on a different dataset, such as false positives in low-textured areas and overly large moving object regions.
+
+---from here, just voice input---
 
 \section{Proposed Method}
 Our proposed method involves combining flow and texture cues for moving object detection from a moving camera. We found that estimating camera motion and optical flow simultaneously is necessary. We compute the optical flow and estimate the camera's focal length using a popular optical flow model. We assume a small area for computing the focal length as the camera is assumed to be rotating. We use the dominant flow in the background as the background flow and extract the different orientation flows for moving objects. By computing the focal length and having a sufficiently large area, we use the outliers as moving objects and combine them with segmentation information to extract the final moving object region. Our approach does not involve refining the rotation as we cannot estimate both the focal length and rotation simultaneously. We use the RunSAC algorithm to compute the focal length and rotation for each candidate.
