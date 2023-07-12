@@ -2,6 +2,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{simpleConference}
+\usepackage{subcaption}
 \usepackage{svg}
 \usepackage{times}
 \usepackage{url,hyperref}
@@ -113,7 +114,35 @@ Then, we combine the moving object pixels with segmentation information to extra
 \section{Evaluation}
 
 \subsection{Qualitative Evaluation}
-We used our own dataset to compare the results of our method with state-of-the-art methods, including Rosario Network. Our approach successfully extracted moving object areas compared to the failure of Rosario Network in large floor areas.
+We used our own dataset to compare the results of our method with the state-of-the-art method ``contextual information separation \cite{yang_loquercio_2019}''.
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{0.25\textwidth}
+    \includegraphics[width=4cm]{fig/contextual/frame_00000002.png}
+    \includegraphics[width=4cm]{fig/contextual/frame_00000010.png}
+    \includegraphics[width=4cm]{fig/contextual/frame_00000020.png}
+    \includegraphics[width=4cm]{fig/contextual/frame_00000030.png}
+    \includegraphics[width=4cm]{fig/contextual/frame_00000040.png}
+    \caption{Contextual information separation}
+  \end{subfigure}
+  \hspace{0.001cm}
+  \begin{subfigure}{0.25\textwidth}
+    \includegraphics[width=4cm]{fig/proposed/00002.jpg}
+    \includegraphics[width=4cm]{fig/proposed/00010.jpg}
+    \includegraphics[width=4cm]{fig/proposed/00020.jpg}
+    \includegraphics[width=4cm]{fig/proposed/00030.jpg}
+    \includegraphics[width=4cm]{fig/proposed/00040.jpg}
+    \caption{Proposed method}
+  \end{subfigure}
+  
+  \caption{Qualitative comparison between contextual information separation and proposed method.}
+  \label{fig:comparison}
+\end{figure}
+
+The result images is in Figure \ref{fig:comparison}.
+Our approach successfully extracted moving object areas compared to the failure of Adversarial Network in large optical flow areas.
+
 
 \subsection{Quantitative Evaluation}
 For quantitative evaluation, we will use the Davis dataset, which is commonly used for moving object detection.
