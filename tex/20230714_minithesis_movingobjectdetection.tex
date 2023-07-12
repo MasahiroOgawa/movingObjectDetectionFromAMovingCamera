@@ -1,8 +1,9 @@
 \documentclass[10pt, twocolumn]{article}
-\usepackage{simpleConference}
-\usepackage{times}
-\usepackage{graphicx}
 \usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{simpleConference}
+\usepackage{svg}
+\usepackage{times}
 \usepackage{url,hyperref}
 
 \begin{document}
@@ -31,9 +32,17 @@
 \end{abstract}
 
 
+
 \section{Introduction}
 Separating moving and static objects is very important for real environment applications.
 Such applications include obstacle avoidance for autonomous vehicles, and scene understanding for assistant robots.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=8cm]{fig/exampleoutput.jpg}
+  \caption{Example output of our moving object detection from a moving camera.}
+  \label{fig:exampleoutput}
+\end{figure}
 
 
 \section{Rerated Work}
@@ -70,10 +79,39 @@ Although this method performed well on their evaluation dataset, but had some is
 There are some false positives in low-textured areas and large object motion regions, where is hard to estimate optical flow from surrounding flow.
 
 
+\section{Proposed Method}
+The concept of our method for detecting moving objects from a moving camera is 1. extract self motion using FoE, 2. combine optical flow and texture cues.
+To detect moving objects, we found that estimating self camera motion at the same time is necessary.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=8cm]{fig/wholeflow.png}
+  \caption{Flow chart of proposed method.\\
+    Rectangle box means an object and rounded box means a process.}
+  \label{fig:wholeflow}
+\end{figure}
+The overall abstruct procedure is in Figure \ref{fig:wholeflow}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=8cm]{fig/foeflow.png}
+  \caption{Detail flow chart of FoE based moving pixel detection}
+  \label{fig:foeflow}
+\end{figure}
+And the detail of ``FoE based moving object pixel'' in Figure \ref{fig:wholeflow} is in Figure \ref{fig:foeflow}.
+
+To compute optical flow, we adopt top ranked method in paperswithcode, which is named UniMatch\cite{xu2022unifying}.
+This approach extracts features by CNN and match features by transformer.
+
+
 ---from here, just voice input---
 
-\section{Proposed Method}
-Our proposed method involves combining flow and texture cues for moving object detection from a moving camera. We found that estimating camera motion and optical flow simultaneously is necessary. We compute the optical flow and estimate the camera's focal length using a popular optical flow model. We assume a small area for computing the focal length as the camera is assumed to be rotating. We use the dominant flow in the background as the background flow and extract the different orientation flows for moving objects. By computing the focal length and having a sufficiently large area, we use the outliers as moving objects and combine them with segmentation information to extract the final moving object region. Our approach does not involve refining the rotation as we cannot estimate both the focal length and rotation simultaneously. We use the RunSAC algorithm to compute the focal length and rotation for each candidate.
+
+We assume a small area for computing the focal length as the camera is assumed to be rotating.
+We use the dominant flow in the background as the background flow and extract the different orientation flows for moving objects.
+By computing the focal length and having a sufficiently large area, we use the outliers as moving objects and combine them with segmentation information to extract the final moving object region.
+Our approach does not involve refining the rotation as we cannot estimate both the focal length and rotation simultaneously.
+We use the RunSAC algorithm to compute the focal length and rotation for each candidate.
+
 
 \section{Evaluation}
 
@@ -82,6 +120,7 @@ We used our own dataset to compare the results of our method with state-of-the-a
 
 \subsection{Quantitative Evaluation}
 For quantitative evaluation, we used the Davis dataset, which is commonly used for moving object detection. However, we have not yet finished the implementation, so there are no quantitative evaluation results available at this time.
+
 
 \section{Summary}
 In this paper, we have presented a state-of-the-art accuracy method for extracting moving objects from a moving camera. Our method combines flow and segmentation information to achieve better results compared to existing state-of-the-art methods like Rosario Network.
