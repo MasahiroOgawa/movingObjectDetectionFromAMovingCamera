@@ -91,26 +91,23 @@ To detect moving objects, we found that estimating self camera motion at the sam
 \end{figure}
 The overall abstruct procedure is in Figure \ref{fig:wholeflow}.
 
+To compute optical flow, we adopt top ranked method in paperswithcode, which is named UniMatch\cite{xu2022unifying}.
+This approach extracts features by CNN and match features by transformer.
+
+After computing optical flow, we compute the FoE from the obtained flow using RANSAC.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=8cm]{fig/foeflow.png}
   \caption{Detail flow chart of FoE based moving pixel detection}
   \label{fig:foeflow}
 \end{figure}
-And the detail of ``FoE based moving object pixel'' in Figure \ref{fig:wholeflow} is in Figure \ref{fig:foeflow}.
+The detail of ``FoE based moving object pixel'' in Figure \ref{fig:wholeflow} is in Figure \ref{fig:foeflow}.
 
-To compute optical flow, we adopt top ranked method in paperswithcode, which is named UniMatch\cite{xu2022unifying}.
-This approach extracts features by CNN and match features by transformer.
-
-
----from here, just voice input---
-
-
-We assume a small area for computing the focal length as the camera is assumed to be rotating.
-We use the dominant flow in the background as the background flow and extract the different orientation flows for moving objects.
-By computing the focal length and having a sufficiently large area, we use the outliers as moving objects and combine them with segmentation information to extract the final moving object region.
-Our approach does not involve refining the rotation as we cannot estimate both the focal length and rotation simultaneously.
-We use the RunSAC algorithm to compute the focal length and rotation for each candidate.
+Our approach does not consider refining the rotation effect for comoputing FoE as in \cite{hu2000}, because it cannot estimate both the FoE and rotation simultaneously.
+Therefore if the inliers of FoE in RANSAC is not enough (this time, we set it as less than 90\%), we judge the camera is rotating.
+If it is judged that the camera is rotating, we extract the different orientation flows as the moving pixels.
+Otherwise, if the inlier is large enough, we trust the computed FoE and extract the pixels which does not follow the orientation computed from the FoE as moving object pixels.
+Then, we combine the moving object pixels with segmentation information to extract the final moving object region.
 
 
 \section{Evaluation}
@@ -119,11 +116,13 @@ We use the RunSAC algorithm to compute the focal length and rotation for each ca
 We used our own dataset to compare the results of our method with state-of-the-art methods, including Rosario Network. Our approach successfully extracted moving object areas compared to the failure of Rosario Network in large floor areas.
 
 \subsection{Quantitative Evaluation}
-For quantitative evaluation, we used the Davis dataset, which is commonly used for moving object detection. However, we have not yet finished the implementation, so there are no quantitative evaluation results available at this time.
+For quantitative evaluation, we will use the Davis dataset, which is commonly used for moving object detection.
+However, we have not yet finished the implementation, so there are no quantitative evaluation results available at this time.
 
 
 \section{Summary}
-In this paper, we have presented a state-of-the-art accuracy method for extracting moving objects from a moving camera. Our method combines flow and segmentation information to achieve better results compared to existing state-of-the-art methods like Rosario Network.
+In this paper, we have presented a state-of-the-art accuracy method for extracting moving objects from a moving camera.
+Our method combines flow and segmentation information to achieve better results compared to existing state-of-the-art methods.
 
 \subsection{Future Work}
 In future work, we plan to:
