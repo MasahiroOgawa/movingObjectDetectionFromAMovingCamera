@@ -28,7 +28,7 @@
 
 \begin{abstract}
  We develop the state of the art accuracy moving object detection from a moving camera.
- The basic idea of our algorithm is if the camera is moving straight forward, we extract moving object as strange flow considering the computed focus of expansion, otherwise we assume the camera is rotating and extract moving objects as undominant flow area. At the same time, to reduce false positives, we incorporate optical flow and semantic segmentation information.
+ The basic idea of our algorithm is if the camera is moving straight forward, we extract moving object as strange flow considering the computed focus of expansion, otherwise we assume the camera is rotating and extract moving objects as undominant flow area. At the same time, to reduce false positives, we incorporate optical flow and semantic segmentation information (not yet implemented for this mini thesis).
  Our approach accomplish state of the art accuracy on our qualitative evaluation.
 \end{abstract}
 
@@ -38,7 +38,7 @@
 Separating moving and static objects is very important for real environment applications.
 Such applications include obstacle avoidance for autonomous vehicles, and scene understanding for assistant robots.
 
-\begin{figure}[ht]
+\begin{figure}[t]
   \centering
   \includegraphics[width=8cm]{fig/exampleoutput.jpg}
   \caption{Example output of our moving object detection from a moving camera.}
@@ -118,25 +118,26 @@ We used our own dataset to compare the results of our method with the state-of-t
 
 \begin{figure}[ht]
   \centering
-  \begin{subfigure}{0.25\textwidth}
-    \includegraphics[width=4cm]{fig/contextual/frame_00000002.png}
-    \includegraphics[width=4cm]{fig/contextual/frame_00000010.png}
-    \includegraphics[width=4cm]{fig/contextual/frame_00000020.png}
-    \includegraphics[width=4cm]{fig/contextual/frame_00000030.png}
-    \includegraphics[width=4cm]{fig/contextual/frame_00000040.png}
-    \caption{Contextual information separation}
-  \end{subfigure}
-  \hspace{0.001cm}
-  \begin{subfigure}{0.25\textwidth}
-    \includegraphics[width=4cm]{fig/proposed/00002.jpg}
-    \includegraphics[width=4cm]{fig/proposed/00010.jpg}
-    \includegraphics[width=4cm]{fig/proposed/00020.jpg}
-    \includegraphics[width=4cm]{fig/proposed/00030.jpg}
-    \includegraphics[width=4cm]{fig/proposed/00040.jpg}
-    \caption{Proposed method}
-  \end{subfigure}
+  \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\linewidth]{fig/contextual/frame_00000002.png}
+    \includegraphics[width=\linewidth]{fig/contextual/frame_00000010.png}
+    \includegraphics[width=\linewidth]{fig/contextual/frame_00000020.png}
+    \includegraphics[width=\linewidth]{fig/contextual/frame_00000030.png}
+    \includegraphics[width=\linewidth]{fig/contextual/frame_00000040.png}
+    \caption*{Contextual information separation}
+  \end{minipage}
+  \hfil
+  \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\linewidth]{fig/proposed/00002.jpg}
+    \includegraphics[width=\linewidth]{fig/proposed/00010.jpg}
+    \includegraphics[width=\linewidth]{fig/proposed/00020.jpg}
+    \includegraphics[width=\linewidth]{fig/proposed/00030.jpg}
+    \includegraphics[width=\linewidth]{fig/proposed/00040.jpg}
+    \caption*{Proposed method}
+  \end{minipage}
   
-  \caption{Qualitative comparison between contextual information separation and proposed method.}
+  \caption{Qualitative comparison for the same scene between contextual information separation and proposed method.\\
+  Proposed method can detect close poles as static object compared with contextual information separation method.}
   \label{fig:comparison}
 \end{figure}
 
@@ -154,13 +155,10 @@ In this paper, we have presented a state-of-the-art accuracy method for extracti
 Our method combines flow and segmentation information to achieve better results compared to existing state-of-the-art methods.
 
 \subsection{Future Work}
-In future work, we plan to:
+We will incorporate segmentation information to reduce false positives of moving objects.
+We plan to estimate camera motion using deep neural network instead of using traditional methods.
+And we also plan to utilize Nerf \cite{mildenhall2020nerf}, and Object scene representation to extract 3D representation and object information.
 
-\begin{itemize}
-  \item Estimate counter motion using deep neural networks instead of using traditional methods.
-  \item Utilize nerve object scene representation to extract security representation and objective information.
-  \item Apply this method to 3D reconstruction.
-\end{itemize}
 
 \bibliographystyle{abbrv}
 \bibliography{4dreconstruction}
