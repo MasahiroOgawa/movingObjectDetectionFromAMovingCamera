@@ -11,7 +11,7 @@
 
 \title{Moving Object Detection from a Moving Camera}
 
-\author{Masahiro Ogawa, Atsushi Yamashita \\
+\author{Masahiro Ogawa\\
   \\
   Yamashita An Lab,
   Department of Precision Engineering,
@@ -20,8 +20,7 @@
   \today
   \\
   \\
-  ogawa@robot.t.u-tokyo.ac.jp\\
-  yamashita@robot.t.u-tokyo.ac.jp}
+  ogawa@robot.t.u-tokyo.ac.jp}
 
 \maketitle
 \thispagestyle{empty}
@@ -38,6 +37,12 @@
 Separating moving and static objects is very important for real environment applications.
 Such applications include obstacle avoidance for autonomous vehicles, and scene understanding for assistant robots.
 
+There are many researches about this topic.
+The most frequently adopted approach would be optical flow orientation based approach.
+However if the camera is going straightforward, the flow orientation will spread radially, and the flow orientation approach will fail.
+To overcome this problem, we take Focus of Expansion (FoE) based approach.
+By computing FoE and estimate the flow based on FoE, we successfully treat the problem.
+
 \begin{figure}[t]
   \centering
   \includegraphics[width=8cm]{fig/exampleoutput.jpg}
@@ -53,7 +58,7 @@ They categorized moving object detection methods, but did not do quantitative ev
 Another famous review paper is X.Zhao et al's one \cite{ZHAO202228}.
 They categorized methods and provided rankings.
 The highest-ranking method is Motion U-Net2 \cite{DBLP:conf/icpr/RahmonBSP20}.
-They used grayscale monocular video as an input and combined three channels; grayscale image, background subtraction image, and flux mask.
+They used gray scale monocular video as an input and combined three channels; gray scale image, background subtraction image, and flux mask.
 However, this method only works for slightly moving cameras and cannot handle large camera motions.
 
 On the other hand, the best method on paperswithcode web site of the category; "Semi-Supervised Video Object Segmentation on Davis (no YouTube-VOS training)" is "HMMN" \cite{DBLP:journals/corr/abs-2109-11404}.
@@ -67,7 +72,7 @@ The motion saliency is obtained by the difference between the reconstructed back
 Their results looks good, but they didn't provide the quantitative comparison between current state of the art methods.
 
 Hu an Uchimura \cite{hu2000} developed Focus of Expansion (FoE) based approach to extract moving objects from a moving camera.
-This method estimates the camera rotation and translation using precomputed FoE.
+This method estimates the camera rotation and translation using pre-computed FoE.
 Then, if the rotation compensated optical flow is not the one which expected for static objects, it will consider the pixel comes from moving objects.
 However, this method assumes a fixed FoE because it assumes car mounted camera.
 Therefore if the camera is handheld, as our assuming case, it will not work anymore.
@@ -76,7 +81,7 @@ One of the current state-of-the-art approach is Yang et al's deep adversarial ne
 They used an adversarial network for optical flow information.
 The generator tries to create a mask that is hard to estimate the inside mask flow, while the in-painter tries to estimate the flow inside the mask.
 The loss is computed by the information reduction rate.
-Although this method performed well on their evaluation dataset, but had some issues when we tested on our dataset.
+Although this method performed well on their evaluation data set, but had some issues when we tested on our data set.
 There are some false positives in low-textured areas and large object motion regions, where is hard to estimate optical flow from surrounding flow.
 
 
@@ -90,7 +95,7 @@ To detect moving objects, we found that estimating self camera motion at the sam
     Rectangle box means an object and rounded box means a process.}
   \label{fig:wholeflow}
 \end{figure}
-The overall abstruct procedure is in Figure \ref{fig:wholeflow}.
+The overall abstract procedure is in Figure \ref{fig:wholeflow}.
 
 To compute optical flow, we adopt top ranked method in paperswithcode, which is named UniMatch\cite{xu2022unifying}.
 This approach extracts features by CNN and match features by transformer.
@@ -104,7 +109,7 @@ After computing optical flow, we compute the FoE from the obtained flow using RA
 \end{figure}
 The detail of ``FoE based moving object pixel'' in Figure \ref{fig:wholeflow} is in Figure \ref{fig:foeflow}.
 
-Our approach does not consider refining the rotation effect for comoputing FoE as in \cite{hu2000}, because it cannot estimate both the FoE and rotation simultaneously.
+Our approach does not consider refining the rotation effect for computing FoE as in \cite{hu2000}, because it cannot estimate both the FoE and rotation simultaneously.
 Therefore if the inliers of FoE in RANSAC is not enough (this time, we set it as less than 90\%), we judge the camera is rotating.
 If it is judged that the camera is rotating, we extract the different orientation flows as the moving pixels.
 Otherwise, if the inlier is large enough, we trust the computed FoE and extract the pixels which does not follow the orientation computed from the FoE as moving object pixels.
@@ -146,7 +151,7 @@ Our approach successfully extracted moving object areas compared to the failure 
 
 
 \subsection{Quantitative Evaluation}
-For quantitative evaluation, we will use the Davis dataset, which is commonly used for moving object detection.
+For quantitative evaluation, we will use the Davis data set, which is commonly used for moving object detection.
 However, we have not yet finished the implementation, so there are no quantitative evaluation results available at this time.
 
 
